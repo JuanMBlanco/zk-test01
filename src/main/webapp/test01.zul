@@ -1,0 +1,11 @@
+<?page title="test 01" contentType="text/html;charset=UTF-8"?>
+<zk>
+  <window id="windowtest01" width="250px" height="250px" apply="org.test.zk.Ctest01Controller" title="test 01" border="normal">
+  
+   <button id="buttontest01" label="test01"/>
+   <button id="dabutton" label="test02"/>
+   <button id="dabutton2" label="do modal"/>
+   <selectbox id="selectbox01" />
+   <selectbox id="selectbox02" /> 
+  </window>
+</zk>

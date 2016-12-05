@@ -1,0 +1,29 @@
+<?page title="Person person manager" contentType="text/html;charset=UTF-8"?>
+<zk>
+  <window xmlns:W="client" position="center, center" apply="org.test.zk.manager.CManagercontroller" title="Person manager" border="normal" hflex="min">
+    <vlayout width="530px">
+       <listbox id="listboxPerson" width="100%" height="350px">
+         <listhead sizable="true">
+         
+         <listheader Label="Id" width="100px"/>
+         <listheader Label="firstname" width="100px"/>
+         <listheader Label="lastname" width="100px"/>
+         <listheader Label="gender" width="100px"/>
+         <listheader Label="birthdate" width="150px"/>
+         <listheader Label="comment" width="250px"/>
+         </listhead>
+       
+       
+       </listbox>
+  
+  
+       <div id="buttoncontainer">
+         <button id="buttondelete" Label="delete" style="float:right;margin-left:5px" /> 
+         <button id="buttonmodify" Label="modify" style="float:right;margin-left:5px" />
+         <button id="buttonadd" Label="add" style="float:right;margin-left:5px" />
+       </div>
+    </vlayout>
+  </window>
+</zk>
+  
+  

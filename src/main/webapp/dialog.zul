@@ -1,0 +1,49 @@
+<?page title="Person" contentType="text/html;charset=UTF-8"?>
+<zk>
+  <window id="Windowperson" xmlns:W="client" apply="org.test.zk.dialog.CDialogcontroller" title="Person" border="normal" hflex="min">
+    <vlayout width="290px">
+      <grid hflex="min">
+        <rows>
+          <row>
+            <label id="LabelId" value="ID:" width="150px" />
+            <textbox id="TextboxId" value="" width="150px" tabindex="1">
+             <attribute W:name="doKeyPress_">
+               <![CDATA[
+                function(evt)
+                 {
+                    if(!this._shallIgnore(evt, "0123456789"))
+                    this.$doKeyPress_(evt);
+                 } 
+               ]]>
+             </attribute> 
+            </textbox>
+          </row>
+          <row>
+            <label id="Labelfirstname" value="First name:" width="150px" />
+            <textbox id="Textboxfirstname" value="" width="180px" tabindex="2" />
+          </row>
+          <row>
+            <label id="Labellastname" value="Last name:" width="150px" />
+            <textbox id="Textboxlastname" value="" width="180px" tabindex="3" />
+          </row>
+          <row>
+            <label id="Labelsex" value="Sex" width="150px" />
+            <selectbox id="Selectboxsex" tabindex="4" />
+          </row>
+          <row>
+            <label id="Labelbirthdate" value="Birthdate" width="150px" />
+            <datebox id="Dateboxbirthdate" value="@bind(fx.birthday)" format="@load(vm.dateFormat)" width="150px" tabindex="4" />
+          </row>
+          <row>
+            <label id="Labelcomment" value="Comment:" width="150px" />
+            <textbox id="Textboxcomment" value="" width="200px" tabindex="4" rows="5" />
+          </row>
+        </rows>
+      </grid>
+      <div id="buttoncontainer">
+        <button id="buttoncancel" Label="cancel" style="float:right;margin-left:5px" />
+        <button id="buttonaccept" Label="accept" style="float:right;margin-left:5px" />
+      </div>
+    </vlayout>
+  </window>
+</zk>
