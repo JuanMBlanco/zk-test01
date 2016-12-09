@@ -20,11 +20,31 @@
           </row>
           <row>
             <label id="Labelfirstname" value="First name:" width="150px" />
-            <textbox id="Textboxfirstname" value="" width="180px" tabindex="2" />
+            <textbox id="Textboxfirstname" value="" width="180px" tabindex="2">
+             <attribute W:name="doKeyPress_">
+               <![CDATA[
+                function(evt)
+                 {
+                    if(this._shallIgnore(evt, "qwertyuiopasdfghjklñzxcvbnm QWERTYUIOPASDFGHJKLÑZXCVBNM"))
+                    this.$doKeyPress_(evt);
+                 } 
+               ]]>
+             </attribute>
+            </textbox>
           </row>
           <row>
             <label id="Labellastname" value="Last name:" width="150px" />
-            <textbox id="Textboxlastname" value="" width="180px" tabindex="3" />
+            <textbox id="Textboxlastname" value="" width="180px" tabindex="3">
+             <attribute W:name="doKeyPress_">
+               <![CDATA[
+                function(evt)
+                 {
+                    if(this._shallIgnore(evt, "qwertyuiopasdfghjklñzxcvbnm QWERTYUIOPASDFGHJKLÑZXCVBNM"))
+                    this.$doKeyPress_(evt);
+                 } 
+               ]]>
+             </attribute>
+            </textbox>     
           </row>
           <row>
             <label id="Labelsex" value="Sex" width="150px" />
@@ -36,7 +56,7 @@
           </row>
           <row>
             <label id="Labelcomment" value="Comment:" width="150px" />
-            <textbox id="Textboxcomment" value="" width="200px" tabindex="4" rows="5" />
+            <textbox id="Textboxcomment" value="" width="200px" tabindex="4" rows="5" />            
           </row>
         </rows>
       </grid>

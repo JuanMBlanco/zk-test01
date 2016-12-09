@@ -12,6 +12,7 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
@@ -68,8 +69,13 @@ public class CManagercontroller extends SelectorComposer<Component> {
     
     
     @Wire
+    Window windowmanager;
+    @Wire
     Listbox listboxPerson;
-    
+    @Wire 
+    Button buttonmodify;
+    @Wire 
+    Button buttonadd;
     @Override
     public void doAfterCompose( Component comp ) {
         
@@ -81,6 +87,12 @@ public class CManagercontroller extends SelectorComposer<Component> {
             datamodel.add( person01 );
             datamodel.add( person02 );
             datamodel.add( person03 );
+            /*final Execution execution = Executions.getCurrent();
+            
+            CPerson personToModify = (CPerson) execution.getArg().get( "personToModify" );  
+            CPerson personToDelete = (CPerson) execution.getArg().get( "personToDelete" );
+            datamodel.add( personToModify );
+            datamodel.remove( personToDelete );*/
             listboxPerson.setModel( datamodel );
             listboxPerson.setMultiple( true ); //para selecciones multiples
             listboxPerson.setItemRenderer( new rendererHelper() );
@@ -89,11 +101,14 @@ public class CManagercontroller extends SelectorComposer<Component> {
         catch ( Exception e ) {
             
             e.printStackTrace();
-        }
+        }   
+        
     }
     @Listen ( "onClick=#buttonadd" )
     public void onClickbuttonadd (Event event){
-       Window win = ( Window ) Executions.getCurrent().createComponents("/dialog.zul", null, null);
+       Map<String,Object> arg = new HashMap<String,Object>();
+       arg.put( "buttonadd", buttonadd );
+       Window win = ( Window ) Executions.createComponents("/dialog.zul", null, arg); 
        win.doModal();
     }
     
@@ -106,11 +121,19 @@ public class CManagercontroller extends SelectorComposer<Component> {
            CPerson person = Selecteditems.iterator().next(); 
            Map<String,Object> arg = new HashMap<String,Object>();
            arg.put("personToModify", person);
-           
+           arg.put( "buttonmodify", buttonmodify );
            Window win = ( Window ) Executions.createComponents("/dialog.zul", null, arg);
            win.doModal();
            
+           /*final Execution execution = Executions.getCurrent();
            
+           CPerson personToModify = (CPerson) execution.getArg().get( "personToModify" );     
+           if (datamodel.add( personToModify ) == true){ 
+           datamodel.remove( person );
+           listboxPerson.setModel( datamodel );
+           listboxPerson.setItemRenderer( new rendererHelper() );
+           }*/
+           //windowmanager.detach();
         }
         else{
             
@@ -119,6 +142,21 @@ public class CManagercontroller extends SelectorComposer<Component> {
         } 
         
     }
+    /*@Listen ("onClick=#buttonrefresh")
+    public void onClickbuttonrefresh (Event event){
+      
+      Set<CPerson> Selecteditems = datamodel.getSelection();
+     
+      final Execution execution = Executions.getCurrent();      
+      CPerson personToModify = (CPerson) execution.getArg().get( "personToModify" );  
+      datamodel.add( personToModify ); 
+      //rendererHelper renderer = new rendererHelper();
+      //renderer.render(, personToModify, listboxPerson.getSelectedIndex() );
+      CPerson person = Selecteditems.iterator().next();
+      datamodel.remove( person );
+      listboxPerson.setItemRenderer( new rendererHelper() );
+    }*/
+    
     @SuppressWarnings( { "rawtypes", "unchecked" } )
     @Listen ( "onClick=#buttondelete" )
     public void onClickbuttondelete (Event event){
@@ -163,6 +201,23 @@ public class CManagercontroller extends SelectorComposer<Component> {
        } 
         
         
+    }
+    @Listen ("onDialogClose=#buttonmodify")
+    public void onDialogCloseModify (Event event){
+     Set<CPerson> Selecteditems = datamodel.getSelection();  
+     CPerson person = Selecteditems.iterator().next();
+     CPerson personToModify = (CPerson) event.getData();
+     datamodel.add( personToModify );
+     datamodel.remove( person );
+     listboxPerson.setModel( datamodel );
+     listboxPerson.setItemRenderer( new rendererHelper() );
+    }
+    @Listen ("onDialogClose=#buttonadd")
+    public void onDialogCloseAdd (Event event){
+     CPerson personToAdd = (CPerson) event.getData();
+     datamodel.add( personToAdd );
+     listboxPerson.setModel( datamodel );
+     listboxPerson.setItemRenderer( new rendererHelper() );
     }
     
 }
