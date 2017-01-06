@@ -1,0 +1,8 @@
+.warn{
+	color:red;
+}
+
+/*make plain grid */
+.gridLayoutNoBorder tr.z-row td.z-rowinner, tr.z-row .z-cell,d div.z-grid{
+ border:none;
+}
